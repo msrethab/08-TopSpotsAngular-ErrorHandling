@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" ng-app ="myApp">
+<head>
+	<meta charset="UTF-8">
+	<title>Top Spots - Error Handling</title>
+
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+
+<!-- bower:css -->
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="bower_components/toastr/toastr.css" />
+<!-- endbower -->
+
+<!-- inject:css -->
+<link rel="stylesheet" href="/app/styles/styles.css">
+<!-- endinject -->
+
+</head>
+<body ng-controller="TopSpotsController as vm">
+
+<!-- Loading google maps api -->
+
+<script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
+
+<!-- bower:js -->
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/toastr/toastr.js"></script>
+<script src="bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
+<script src="bower_components/lodash/lodash.js"></script>
+<script src="bower_components/markerclustererplus/src/markerclusterer.js"></script>
+<script src="bower_components/google-maps-utility-library-v3-markerwithlabel/dist/markerwithlabel.js"></script>
+<script src="bower_components/google-maps-utility-library-v3-infobox/dist/infobox.js"></script>
+<script src="bower_components/google-maps-utility-library-v3-keydragzoom/dist/keydragzoom.js"></script>
+<script src="bower_components/js-rich-marker/src/richmarker.js"></script>
+<script src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
+<!-- endbower -->
+
+	<!-- Creating a title Header -->
+
+    <header>
+        <h1>San Diego Top Spots - Error Handling</h1>
+    </header>
+    
+
+    <div class="button">
+        <button ng-click="showModal= !showModal" class="btn btn-primary">Enter in your Top Spots!</button>
+    </div>
+
+    <modal visible="showModal"></modal>
+
+	<div class="container">
+
+        <!-- Create Table object with head labels and empty body -->
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="col-md-2">Name</th>
+                    <th class="col-md-8">Description</th>
+                    <th class="col-md-2 linkHeading">Link</th>
+                </tr>
+            </thead>
+
+            <!-- Binding topspots data from the main controller and repeating the data into the table rows -->
+
+            <tbody id="dataTable">
+            	<tr ng-repeat="data in vm.topspots">
+            		<td>{{data.name}}</td>
+            		<td>{{data.description}}</td>
+            		<td class="button">
+                        <a ng-href="https://www.google.com/maps?q={{data.location[0] + ',' + data.location[1]}}" target="_blank" class="btn btn-primary active" role="button">Open in Google Maps</a>
+                        <a href="" ng-click="vm.deleteTopSpot($index)"  class="delete">delete</a>
+                    </td>
+            	</tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Create a copyright footer -->
+
+    <footer class="centFooter">
+        <p>&copy; 2016 Mark Srethabhakti.</p>
+    </footer>
+
+<!-- inject:js -->
+<script src="/app/app.js"></script>
+<script src="/app/modal/modal.js"></script>
+<script src="/app/topspots/topspots.controller.js"></script>
+<script src="/app/topspots/topspots.factory.js"></script>
+<!-- endinject -->
+</body>
+</html>
